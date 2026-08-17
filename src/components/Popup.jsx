@@ -285,11 +285,10 @@ function Popup({
         <img
           src={
             movie.backdrop ||
-            movie.image
+            movie.image ||
+            "https://placehold.co/380x220/181818/ffffff?text=No+Image"
           }
-
-          alt={movie.title}
-
+          alt={movie.title || "Movie"}
           className="popup-image"
         />
 

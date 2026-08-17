@@ -145,12 +145,14 @@ function MovieCard({
     >
 
       <img
-        src={movie.image}
-        alt={movie.title}
+        src={
+          movie.image ||
+          movie.backdrop ||
+          "https://placehold.co/300x450/181818/ffffff?text=No+Image"
+        }
+        alt={movie.title || "Movie"}
         className="poster"
-        loading="lazy"
       />
-
     </div>
 
   );

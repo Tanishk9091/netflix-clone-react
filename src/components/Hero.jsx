@@ -92,7 +92,9 @@ function Hero({
   // =====================================================
 
   const backgroundImage =
-    movie.backdrop || movie.image;
+    movie.backdrop ||
+    movie.image ||
+    "https://placehold.co/1920x1080/181818/ffffff?text=No+Image";
 
 
   return (

@@ -4,7 +4,8 @@
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL =
+  "https://api.themoviedb.org/3";
 
 const IMAGE_URL =
   "https://image.tmdb.org/t/p/w500";
@@ -14,7 +15,7 @@ const BACKDROP_URL =
 
 
 // =====================================================
-// TMDB GENRES
+// MOVIE GENRES
 // =====================================================
 
 const genreMap = {
@@ -43,6 +44,32 @@ const genreMap = {
 
 
 // =====================================================
+// TV SHOW GENRES
+// =====================================================
+
+const tvGenreMap = {
+
+  10759: "Action & Adventure",
+  16: "Animation",
+  35: "Comedy",
+  80: "Crime",
+  99: "Documentary",
+  18: "Drama",
+  10751: "Family",
+  10762: "Kids",
+  9648: "Mystery",
+  10763: "News",
+  10764: "Reality",
+  10765: "Sci-Fi & Fantasy",
+  10766: "Soap",
+  10767: "Talk",
+  10768: "War & Politics",
+  37: "Western",
+
+};
+
+
+// =====================================================
 // CREATE TMDB URL
 // =====================================================
 
@@ -51,15 +78,18 @@ function createUrl(endpoint) {
   const url =
     new URL(`${BASE_URL}${endpoint}`);
 
+
   url.searchParams.set(
     "api_key",
     API_KEY
   );
 
+
   url.searchParams.set(
     "language",
     "en-US"
   );
+
 
   return url.toString();
 
@@ -123,10 +153,6 @@ async function fetchMovies(endpoint) {
 
         return {
 
-          // =================================================
-          // BASIC INFORMATION
-          // =================================================
-
           id:
             movie.id,
 
@@ -139,24 +165,17 @@ async function fetchMovies(endpoint) {
             "No description available.",
 
 
-          // =================================================
-          // IMAGES
-          // =================================================
-
           image:
             movie.poster_path
               ? `${IMAGE_URL}${movie.poster_path}`
               : "",
+
 
           backdrop:
             movie.backdrop_path
               ? `${BACKDROP_URL}${movie.backdrop_path}`
               : "",
 
-
-          // =================================================
-          // RATING
-          // =================================================
 
           match:
             movie.vote_average
@@ -165,37 +184,28 @@ async function fetchMovies(endpoint) {
                 )}% Match`
               : "N/A",
 
+
           rating:
             movie.vote_average || 0,
+
 
           popularity:
             movie.popularity || 0,
 
-
-          // =================================================
-          // RELEASE DATE
-          // =================================================
 
           releaseDate:
             movie.release_date ||
             "Unknown",
 
 
-          // =================================================
-          // GENRE
-          // =================================================
-
           genre:
             genres ||
             "Movie",
 
 
-          // =================================================
-          // TEMPORARY DATA
-          // =================================================
-
           time:
             "Movie",
+
 
           age:
             "U/A 16+",
@@ -204,6 +214,7 @@ async function fetchMovies(endpoint) {
 
       }
     );
+
 
   } catch (error) {
 
@@ -287,10 +298,6 @@ export async function getMovieDetails(
     );
 
 
-    // =================================================
-    // GET MOVIE DETAILS
-    // =================================================
-
     const response =
       await fetch(
         createUrl(
@@ -353,7 +360,7 @@ export async function getMovieDetails(
 
 
         // ---------------------------------------------
-        // OTHERWISE TRY US
+        // TRY US
         // ---------------------------------------------
 
         const usRelease =
@@ -399,10 +406,8 @@ export async function getMovieDetails(
 
       }
 
-    } catch (certificationError) {
 
-      // Certification is optional.
-      // Movie details should still work.
+    } catch (certificationError) {
 
       console.warn(
         "Could not fetch certification:",
@@ -418,40 +423,31 @@ export async function getMovieDetails(
 
     return {
 
-      // =================================================
-      // BASIC
-      // =================================================
-
       id:
         movie.id,
+
 
       title:
         movie.title ||
         "Unknown",
+
 
       description:
         movie.overview ||
         "No description available.",
 
 
-      // =================================================
-      // IMAGES
-      // =================================================
-
       image:
         movie.poster_path
           ? `${IMAGE_URL}${movie.poster_path}`
           : "",
+
 
       backdrop:
         movie.backdrop_path
           ? `${BACKDROP_URL}${movie.backdrop_path}`
           : "",
 
-
-      // =================================================
-      // MATCH
-      // =================================================
 
       match:
         movie.vote_average
@@ -461,34 +457,18 @@ export async function getMovieDetails(
           : "N/A",
 
 
-      // =================================================
-      // RATING
-      // =================================================
-
       rating:
         movie.vote_average || 0,
 
-
-      // =================================================
-      // RELEASE DATE
-      // =================================================
 
       releaseDate:
         movie.release_date ||
         "Unknown",
 
 
-      // =================================================
-      // AGE / CERTIFICATION
-      // =================================================
-
       age:
         certification,
 
-
-      // =================================================
-      // RUNTIME
-      // =================================================
 
       time:
         movie.runtime
@@ -499,10 +479,6 @@ export async function getMovieDetails(
             }m`
           : "Unknown",
 
-
-      // =================================================
-      // GENRES
-      // =================================================
 
       genre:
         movie.genres &&
@@ -516,14 +492,11 @@ export async function getMovieDetails(
           : "Unknown",
 
 
-      // =================================================
-      // POPULARITY
-      // =================================================
-
       popularity:
         movie.popularity || 0,
 
     };
+
 
   } catch (error) {
 
@@ -577,7 +550,7 @@ export async function getMovieTrailer(
 
 
     // =================================================
-    // FIND OFFICIAL YOUTUBE TRAILER
+    // OFFICIAL YOUTUBE TRAILER
     // =================================================
 
     const officialTrailer =
@@ -603,7 +576,7 @@ export async function getMovieTrailer(
 
 
     // =================================================
-    // NO TRAILER FOUND
+    // NO TRAILER
     // =================================================
 
     if (!trailer) {
@@ -619,7 +592,7 @@ export async function getMovieTrailer(
 
 
     // =================================================
-    // RETURN TRAILER DATA
+    // RETURN TRAILER
     // =================================================
 
     return {
@@ -637,6 +610,7 @@ export async function getMovieTrailer(
         trailer.type,
 
     };
+
 
   } catch (error) {
 
@@ -660,10 +634,6 @@ export async function searchMovies(
   query
 ) {
 
-  // =================================================
-  // CHECK EMPTY SEARCH
-  // =================================================
-
   if (
     !query ||
     query.trim() === ""
@@ -682,9 +652,585 @@ export async function searchMovies(
     );
 
 
+    const encodedQuery =
+      encodeURIComponent(
+        query.trim()
+      );
+
+
+    return await fetchMovies(
+      `/search/movie?query=${encodedQuery}&include_adult=false&page=1`
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Search API failed:",
+      error
+    );
+
+    return [];
+
+  }
+
+}
+
+
+// =====================================================
+// =====================================================
+// TV SHOW API
+// =====================================================
+// =====================================================
+
+
+// =====================================================
+// FETCH TV SHOWS
+// =====================================================
+
+async function fetchTVShows(endpoint) {
+
+  try {
+
+    console.log(
+      "Fetching TV:",
+      endpoint
+    );
+
+
+    const response =
+      await fetch(
+        createUrl(endpoint)
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        `TMDB TV request failed: ${response.status} ${response.statusText}`
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if (!data.results) {
+
+      throw new Error(
+        "TMDB TV response does not contain results"
+      );
+
+    }
+
+
+    return data.results.map(
+      (show) => {
+
+        const genres =
+          show.genre_ids
+            ?.map(
+              (id) =>
+                tvGenreMap[id]
+            )
+            .filter(Boolean)
+            .join(" • ");
+
+
+        return {
+
+          // =================================================
+          // BASIC INFORMATION
+          // =================================================
+
+          id:
+            show.id,
+
+
+          title:
+            show.name ||
+            "Unknown",
+
+
+          description:
+            show.overview ||
+            "No description available.",
+
+
+          // =================================================
+          // IMAGES
+          // =================================================
+
+          image:
+            show.poster_path
+              ? `${IMAGE_URL}${show.poster_path}`
+              : "",
+
+
+          backdrop:
+            show.backdrop_path
+              ? `${BACKDROP_URL}${show.backdrop_path}`
+              : "",
+
+
+          // =================================================
+          // RATING
+          // =================================================
+
+          match:
+            show.vote_average
+              ? `${Math.round(
+                  show.vote_average * 10
+                )}% Match`
+              : "N/A",
+
+
+          rating:
+            show.vote_average || 0,
+
+
+          popularity:
+            show.popularity || 0,
+
+
+          // =================================================
+          // RELEASE DATE
+          // =================================================
+
+          releaseDate:
+            show.first_air_date ||
+            "Unknown",
+
+
+          // =================================================
+          // GENRES
+          // =================================================
+
+          genre:
+            genres ||
+            "TV Show",
+
+
+          // =================================================
+          // TV-SPECIFIC DATA
+          // =================================================
+
+          time:
+            show.number_of_seasons
+              ? `${show.number_of_seasons} Seasons`
+              : "TV Show",
+
+
+          age:
+            "U/A 16+",
+
+
+          // Useful later
+          mediaType:
+            "tv",
+
+        };
+
+      }
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      `Error fetching TV shows from ${endpoint}:`,
+      error
+    );
+
+    throw error;
+
+  }
+
+}
+
+
+// =====================================================
+// TRENDING TV SHOWS
+// =====================================================
+
+export async function getTrendingShows() {
+
+  return fetchTVShows(
+    "/trending/tv/week"
+  );
+
+}
+
+
+// =====================================================
+// POPULAR TV SHOWS
+// =====================================================
+
+export async function getPopularShows() {
+
+  return fetchTVShows(
+    "/tv/popular"
+  );
+
+}
+
+
+// =====================================================
+// TOP RATED TV SHOWS
+// =====================================================
+
+export async function getTopRatedShows() {
+
+  return fetchTVShows(
+    "/tv/top_rated"
+  );
+
+}
+
+
+// =====================================================
+// CURRENTLY AIRING TV SHOWS
+// =====================================================
+
+export async function getOnTheAirShows() {
+
+  return fetchTVShows(
+    "/tv/on_the_air"
+  );
+
+}
+
+
+// =====================================================
+// ACTION & ADVENTURE SHOWS
+// =====================================================
+
+export async function getActionAdventureShows() {
+
+  return fetchTVShows(
+    "/discover/tv?with_genres=10759"
+  );
+
+}
+
+
+// =====================================================
+// COMEDY SHOWS
+// =====================================================
+
+export async function getComedyShows() {
+
+  return fetchTVShows(
+    "/discover/tv?with_genres=35"
+  );
+
+}
+
+
+// =====================================================
+// DRAMA SHOWS
+// =====================================================
+
+export async function getDramaShows() {
+
+  return fetchTVShows(
+    "/discover/tv?with_genres=18"
+  );
+
+}
+
+
+// =====================================================
+// TV SHOW DETAILS
+// =====================================================
+
+export async function getShowDetails(
+  showId
+) {
+
+  try {
+
+    console.log(
+      "Fetching TV show details for ID:",
+      showId
+    );
+
+
+    const response =
+      await fetch(
+        createUrl(
+          `/tv/${showId}`
+        )
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        `TV details request failed: ${response.status} ${response.statusText}`
+      );
+
+    }
+
+
+    const show =
+      await response.json();
+
+
     // =================================================
-    // ENCODE SEARCH TEXT
+    // GENRES
     // =================================================
+
+    const genres =
+      show.genres &&
+      show.genres.length > 0
+        ? show.genres
+            .map(
+              (genre) =>
+                genre.name
+            )
+            .join(" • ")
+        : "TV Show";
+
+
+    // =================================================
+    // RETURN FORMATTED SHOW
+    // =================================================
+
+    return {
+
+      id:
+        show.id,
+
+
+      title:
+        show.name ||
+        "Unknown",
+
+
+      description:
+        show.overview ||
+        "No description available.",
+
+
+      image:
+        show.poster_path
+          ? `${IMAGE_URL}${show.poster_path}`
+          : "",
+
+
+      backdrop:
+        show.backdrop_path
+          ? `${BACKDROP_URL}${show.backdrop_path}`
+          : "",
+
+
+      match:
+        show.vote_average
+          ? `${Math.round(
+              show.vote_average * 10
+            )}% Match`
+          : "N/A",
+
+
+      rating:
+        show.vote_average || 0,
+
+
+      releaseDate:
+        show.first_air_date ||
+        "Unknown",
+
+
+      genre:
+        genres,
+
+
+      time:
+        show.number_of_seasons
+          ? `${show.number_of_seasons} Seasons`
+          : "TV Show",
+
+
+      age:
+        "U/A 16+",
+
+
+      popularity:
+        show.popularity || 0,
+
+
+      numberOfSeasons:
+        show.number_of_seasons || 0,
+
+
+      numberOfEpisodes:
+        show.number_of_episodes || 0,
+
+
+      mediaType:
+        "tv",
+
+    };
+
+
+  } catch (error) {
+
+    console.error(
+      "ERROR IN getShowDetails():",
+      error
+    );
+
+    throw error;
+
+  }
+
+}
+
+
+// =====================================================
+// GET TV SHOW TRAILER
+// =====================================================
+
+export async function getShowTrailer(
+  showId
+) {
+
+  try {
+
+    console.log(
+      "Fetching TV trailer for ID:",
+      showId
+    );
+
+
+    const response =
+      await fetch(
+        createUrl(
+          `/tv/${showId}/videos`
+        )
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        `TV trailer request failed: ${response.status}`
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    // =================================================
+    // OFFICIAL TRAILER
+    // =================================================
+
+    const officialTrailer =
+      data.results?.find(
+        (video) =>
+          video.site === "YouTube" &&
+          video.type === "Trailer" &&
+          video.official === true
+      );
+
+
+    // =================================================
+    // FALLBACK TRAILER
+    // =================================================
+
+    const trailer =
+      officialTrailer ||
+      data.results?.find(
+        (video) =>
+          video.site === "YouTube" &&
+          (
+            video.type === "Trailer" ||
+            video.type === "Teaser"
+          )
+      );
+
+
+    // =================================================
+    // NO TRAILER
+    // =================================================
+
+    if (!trailer) {
+
+      console.log(
+        "No TV trailer found for:",
+        showId
+      );
+
+      return null;
+
+    }
+
+
+    // =================================================
+    // RETURN TRAILER
+    // =================================================
+
+    return {
+
+      key:
+        trailer.key,
+
+      name:
+        trailer.name,
+
+      site:
+        trailer.site,
+
+      type:
+        trailer.type,
+
+    };
+
+  } catch (error) {
+
+    console.error(
+      "Error fetching TV trailer:",
+      error
+    );
+
+    throw error;
+
+  }
+
+}
+
+
+// =====================================================
+// SEARCH TV SHOWS
+// =====================================================
+
+export async function searchShows(
+  query
+) {
+
+  if (
+    !query ||
+    query.trim() === ""
+  ) {
+
+    return [];
+
+  }
+
+
+  try {
+
+    console.log(
+      "Searching TV shows for:",
+      query
+    );
+
 
     const encodedQuery =
       encodeURIComponent(
@@ -692,18 +1238,47 @@ export async function searchMovies(
       );
 
 
-    // =================================================
-    // SEARCH TMDB
-    // =================================================
-
-    return await fetchMovies(
-      `/search/movie?query=${encodedQuery}&include_adult=false&page=1`
+    return await fetchTVShows(
+      `/search/tv?query=${encodedQuery}&page=1`
     );
+
 
   } catch (error) {
 
     console.error(
-      "Search API failed:",
+      "TV search API failed:",
+      error
+    );
+
+    return [];
+
+  }
+
+}
+
+// =====================================================
+// MOVIES BY LANGUAGE
+// =====================================================
+
+export async function getMoviesByLanguage(languageCode) {
+
+  try {
+
+    console.log(
+      "Fetching movies for language:",
+      languageCode
+    );
+
+    const movies = await fetchMovies(
+      `/discover/movie?with_original_language=${languageCode}&sort_by=popularity.desc&page=1`
+    );
+
+    return movies || [];
+
+  } catch (error) {
+
+    console.error(
+      "Language movies failed:",
       error
     );
 

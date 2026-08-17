@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import "../styles/style.css";
 
 import logo from "../assets/Images/netflix-logo.png";
@@ -11,44 +11,18 @@ function Navbar({
   myList = [],
   currentUser,
   onLogout,
+  onShows,
+  onLanguageSelect,
 }) {
 
-  const [showSearch, setShowSearch] = useState(false);
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showSearch, setShowSearch] =
+    useState(false);
 
-  const profileRef = useRef(null);
+  const [showProfile, setShowProfile] =
+    useState(false);
 
-
-  // =====================================================
-  // CLOSE PROFILE WHEN CLICKING OUTSIDE
-  // =====================================================
-
-  useEffect(() => {
-
-    const handleClickOutside = (event) => {
-
-      if (
-        profileRef.current &&
-        !profileRef.current.contains(event.target)
-      ) {
-        setShowProfileMenu(false);
-      }
-
-    };
-
-    document.addEventListener(
-      "mousedown",
-      handleClickOutside
-    );
-
-    return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleClickOutside
-      );
-    };
-
-  }, []);
+  const [showLanguages, setShowLanguages] =
+    useState(false);
 
 
   // =====================================================
@@ -68,6 +42,21 @@ function Navbar({
 
 
   // =====================================================
+  // SHOWS
+  // =====================================================
+
+  const handleShows = (e) => {
+
+    e.preventDefault();
+
+    if (onShows) {
+      onShows(e);
+    }
+
+  };
+
+
+  // =====================================================
   // MOVIES
   // =====================================================
 
@@ -76,12 +65,15 @@ function Navbar({
     e.preventDefault();
 
     const moviesSection =
-      document.getElementById("movies-section");
+      document.getElementById(
+        "movies-section"
+      );
 
     if (moviesSection) {
 
       moviesSection.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       });
 
     }
@@ -98,12 +90,16 @@ function Navbar({
     e.preventDefault();
 
     const myListSection =
-      document.getElementById("my-list-section");
+      document.getElementById(
+        "my-list-section"
+      );
 
 
     if (!myList || myList.length === 0) {
 
-      alert("Your My List is empty.");
+      alert(
+        "Your My List is empty."
+      );
 
       return;
 
@@ -114,9 +110,42 @@ function Navbar({
 
       myListSection.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       });
 
     }
+
+  };
+
+
+  // =====================================================
+  // BROWSE BY LANGUAGES
+  // =====================================================
+
+  const handleLanguage = (
+    languageCode,
+    languageName
+  ) => {
+
+    console.log(
+      "Selected language:",
+      languageName
+    );
+
+
+    if (onLanguageSelect) {
+
+      onLanguageSelect(
+        languageCode,
+        languageName
+      );
+
+    }
+
+
+    // Close dropdown
+
+    setShowLanguages(false);
 
   };
 
@@ -127,7 +156,7 @@ function Navbar({
 
   const handleLogout = () => {
 
-    setShowProfileMenu(false);
+    setShowProfile(false);
 
     if (onLogout) {
       onLogout();
@@ -138,8 +167,7 @@ function Navbar({
 
   return (
 
-    <nav className="navbar">
-
+    <nav>
 
       {/* =================================================
           LEFT SIDE
@@ -147,43 +175,50 @@ function Navbar({
 
       <div className="nav-left">
 
-
         {/* LOGO */}
 
         <img
           src={logo}
           className="logo"
-          alt="Netflix"
+          alt="Netflix Logo"
         />
 
 
-        {/* NAVIGATION */}
+        {/* =================================================
+            NAVIGATION
+        ================================================= */}
 
         <ul>
 
+          {/* HOME */}
+
           <li>
+
             <a
               href="#"
               onClick={handleHome}
             >
               Home
             </a>
+
           </li>
 
+
+          {/* SHOWS */}
 
           <li>
 
             <a
-              href="#"
-              onClick={(e) =>
-                e.preventDefault()
-              }
+              href="#shows-section"
+              onClick={handleShows}
             >
               Shows
             </a>
 
           </li>
 
+
+          {/* MOVIES */}
 
           <li>
 
@@ -197,6 +232,8 @@ function Navbar({
           </li>
 
 
+          {/* MY LIST */}
+
           <li>
 
             <a
@@ -209,16 +246,146 @@ function Navbar({
           </li>
 
 
-          <li>
+          {/* =================================================
+              BROWSE BY LANGUAGES
+          ================================================= */}
+
+          <li className="language-menu">
 
             <a
               href="#"
-              onClick={(e) =>
-                e.preventDefault()
-              }
+              onClick={(e) => {
+
+                e.preventDefault();
+
+                setShowLanguages(
+                  !showLanguages
+                );
+
+              }}
             >
+
               Browse by Languages
+
+              <i
+                className={`fa-solid ${
+                  showLanguages
+                    ? "fa-chevron-up"
+                    : "fa-chevron-down"
+                }`}
+              ></i>
+
             </a>
+
+
+            {/* =================================================
+                LANGUAGE DROPDOWN
+            ================================================= */}
+
+            {showLanguages && (
+
+              <div className="language-dropdown">
+
+                {/* ENGLISH */}
+
+                <button
+                  onClick={() =>
+                    handleLanguage(
+                      "en",
+                      "English"
+                    )
+                  }
+                >
+                  🇬🇧 English
+                </button>
+
+
+                {/* HINDI */}
+
+                <button
+                  onClick={() =>
+                    handleLanguage(
+                      "hi",
+                      "Hindi"
+                    )
+                  }
+                >
+                  🇮🇳 Hindi
+                </button>
+
+
+                {/* TAMIL */}
+
+                <button
+                  onClick={() =>
+                    handleLanguage(
+                      "ta",
+                      "Tamil"
+                    )
+                  }
+                >
+                  🇮🇳 Tamil
+                </button>
+
+
+                {/* TELUGU */}
+
+                <button
+                  onClick={() =>
+                    handleLanguage(
+                      "te",
+                      "Telugu"
+                    )
+                  }
+                >
+                  🇮🇳 Telugu
+                </button>
+
+
+                {/* KOREAN */}
+
+                <button
+                  onClick={() =>
+                    handleLanguage(
+                      "ko",
+                      "Korean"
+                    )
+                  }
+                >
+                  🇰🇷 Korean
+                </button>
+
+
+                {/* JAPANESE */}
+
+                <button
+                  onClick={() =>
+                    handleLanguage(
+                      "ja",
+                      "Japanese"
+                    )
+                  }
+                >
+                  🇯🇵 Japanese
+                </button>
+
+
+                {/* SPANISH */}
+
+                <button
+                  onClick={() =>
+                    handleLanguage(
+                      "es",
+                      "Spanish"
+                    )
+                  }
+                >
+                  🇪🇸 Spanish
+                </button>
+
+              </div>
+
+            )}
 
           </li>
 
@@ -234,13 +401,31 @@ function Navbar({
       <div className="nav-right">
 
 
-        {/* SEARCH */}
+        {/* =================================================
+            SEARCH
+        ================================================= */}
 
         <div
           className={`search-box ${
-            showSearch ? "active" : ""
+            showSearch
+              ? "active"
+              : ""
           }`}
         >
+
+          <i
+            className="
+              fa-solid
+              fa-magnifying-glass
+              search-icon
+            "
+            onClick={() =>
+              setShowSearch(
+                !showSearch
+              )
+            }
+          ></i>
+
 
           {showSearch && (
 
@@ -249,72 +434,75 @@ function Navbar({
               placeholder="Titles, people, genres"
               value={searchTerm}
               onChange={(e) =>
-                setSearchTerm(e.target.value)
+                setSearchTerm(
+                  e.target.value
+                )
               }
               autoFocus
             />
 
           )}
 
-
-          <i
-            className="fa-solid fa-magnifying-glass search-icon"
-            onClick={() =>
-              setShowSearch(!showSearch)
-            }
-          ></i>
-
         </div>
 
 
-        {/* NOTIFICATION */}
+        {/* =================================================
+            NOTIFICATION
+        ================================================= */}
 
-        <i className="fa-regular fa-bell nav-icon"></i>
+        <i
+          className="
+            fa-regular
+            fa-bell
+            nav-icon
+          "
+          title="Notifications"
+        ></i>
 
 
         {/* =================================================
             PROFILE
         ================================================= */}
 
-        <div
-          className="profile-wrapper"
-          ref={profileRef}
-        >
+        <div className="profile-container">
 
-          <button
-            className="profile-button"
+          <img
+            src={profile}
+            className="profile"
+            alt="Profile"
             onClick={() =>
-              setShowProfileMenu(
-                !showProfileMenu
+              setShowProfile(
+                !showProfile
               )
             }
-          >
+          />
 
-            <img
-              src={profile}
-              className="profile"
-              alt="Profile"
-            />
 
-            <i
-              className={`fa-solid fa-chevron-down ${
-                showProfileMenu
-                  ? "profile-arrow open"
-                  : "profile-arrow"
-              }`}
-            ></i>
-
-          </button>
+          <i
+            className={`
+              fa-solid
+              ${
+                showProfile
+                  ? "fa-chevron-up"
+                  : "fa-chevron-down"
+              }
+              profile-arrow
+            `}
+            onClick={() =>
+              setShowProfile(
+                !showProfile
+              )
+            }
+          ></i>
 
 
           {/* =================================================
               PROFILE DROPDOWN
           ================================================= */}
 
-          {showProfileMenu && (
+          {showProfile && (
 
             <div className="profile-dropdown">
-
 
               <div className="profile-user">
 
@@ -323,15 +511,16 @@ function Navbar({
                   alt="Profile"
                 />
 
-
                 <div>
 
                   <strong>
-                    {currentUser?.name || "User"}
+                    {currentUser?.name ||
+                      "User"}
                   </strong>
 
                   <span>
-                    {currentUser?.email || ""}
+                    {currentUser?.email ||
+                      ""}
                   </span>
 
                 </div>
@@ -339,22 +528,19 @@ function Navbar({
               </div>
 
 
-              <div className="profile-line"></div>
+              <div className="dropdown-divider"></div>
 
 
               <button
-                className="logout-button"
                 onClick={handleLogout}
+                className="logout-btn"
               >
 
                 <i className="fa-solid fa-right-from-bracket"></i>
 
-                <span>
-                  Sign out of Netflix
-                </span>
+                Logout
 
               </button>
-
 
             </div>
 
@@ -367,6 +553,7 @@ function Navbar({
     </nav>
 
   );
+
 }
 
 

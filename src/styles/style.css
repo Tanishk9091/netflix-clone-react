@@ -2921,3 +2921,241 @@ nav {
 
     border-color: #ffffff;
 }
+
+/* =====================================================
+   PROFILE CONTAINER
+===================================================== */
+
+.profile-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* =====================================================
+   PROFILE ARROW
+===================================================== */
+
+.profile-arrow {
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+
+/* =====================================================
+   PROFILE DROPDOWN
+===================================================== */
+
+.profile-dropdown {
+  position: absolute;
+
+  top: 48px;
+  right: 0;
+
+  width: 260px;
+
+  background: #181818;
+
+  border: 1px solid #333;
+
+  border-radius: 5px;
+
+  padding: 15px;
+
+  z-index: 9999;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+
+/* =====================================================
+   PROFILE USER
+===================================================== */
+
+.profile-user {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  color: white;
+}
+
+
+.profile-user img {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 4px;
+
+  object-fit: cover;
+}
+
+
+.profile-user div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+
+.profile-user strong {
+  font-size: 14px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.profile-user span {
+  color: #aaa;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.dropdown-divider {
+  height: 1px;
+
+  background: #333;
+
+  margin: 15px 0;
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-btn {
+  width: 100%;
+
+  background: transparent;
+
+  border: none;
+
+  color: white;
+
+  padding: 10px;
+
+  text-align: left;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  border-radius: 4px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.logout-btn:hover {
+  background: #333;
+}
+
+
+.logout-btn i {
+  font-size: 14px;
+}
+
+/* =====================================================
+   BROWSE BY LANGUAGES
+===================================================== */
+
+.language-menu {
+  position: relative;
+}
+
+.language-menu > a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.language-menu > a i {
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   LANGUAGE DROPDOWN
+===================================================== */
+
+.language-dropdown {
+  position: absolute;
+
+  top: 32px;
+  left: 0;
+
+  width: 190px;
+
+  background: #181818;
+
+  border: 1px solid #333;
+
+  border-radius: 5px;
+
+  padding: 8px 0;
+
+  z-index: 9999;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.7);
+}
+
+
+/* =====================================================
+   LANGUAGE BUTTONS
+===================================================== */
+
+.language-dropdown button {
+  width: 100%;
+
+  background: transparent;
+
+  border: none;
+
+  color: white;
+
+  text-align: left;
+
+  padding: 11px 15px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+
+.language-dropdown button:hover {
+  background: #333;
+}
