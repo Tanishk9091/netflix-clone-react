@@ -1070,22 +1070,36 @@ const handleLogout = () => {
       ================================================= */}
 
       <Popup
-        movie={popupMovie}
+  movie={popupMovie}
 
-        position={popupPosition}
+  position={popupPosition}
 
-        setPopupMovie={
-          setPopupMovie
-        }
+  setPopupMovie={
+    setPopupMovie
+  }
 
-        hideTimeout={
-          hideTimeout
-        }
+  hideTimeout={
+    hideTimeout
+  }
 
-        setSelectedMovie={
-          handleSelectMovie
-        }
-      />
+  setSelectedMovie={
+    handleSelectMovie
+  }
+
+  // Play trailer
+  onPlay={
+    handlePlayMovie
+  }
+
+  // My List
+  myList={
+    myList
+  }
+
+  setMyList={
+    setMyList
+  }
+/>
 
 
       {/* =================================================

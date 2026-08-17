@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import "../styles/style.css";
+
 
 function Popup({
   movie,
@@ -6,47 +8,288 @@ function Popup({
   setPopupMovie,
   hideTimeout,
   setSelectedMovie,
+  onPlay,
+  myList = [],
+  setMyList,
 }) {
-  if (!movie) return null;
 
-  const handleMoreInfo = () => {
-    clearTimeout(hideTimeout.current);
+  // =====================================================
+  // LIKE STATE
+  // =====================================================
+
+  const [liked, setLiked] = useState(false);
+
+
+  // =====================================================
+  // CHECK LIKE STATUS
+  // =====================================================
+
+  useEffect(() => {
+
+    if (!movie) return;
+
+
+    const savedLikes =
+      JSON.parse(
+        localStorage.getItem("likedMovies") || "[]"
+      );
+
+
+    const alreadyLiked =
+      savedLikes.some(
+        (item) => item.id === movie.id
+      );
+
+
+    setLiked(alreadyLiked);
+
+  }, [movie]);
+
+
+  // =====================================================
+  // PLAY TRAILER
+  // =====================================================
+
+  const handlePlay = () => {
+
+    clearTimeout(
+      hideTimeout.current
+    );
+
 
     setPopupMovie(null);
-    setSelectedMovie(movie);
+
+
+    if (onPlay) {
+
+      onPlay(movie);
+
+    }
+
   };
+
+
+  // =====================================================
+  // MY LIST
+  // =====================================================
+
+  const handleMyList = () => {
+
+    if (!movie) return;
+
+
+    const alreadyExists =
+      myList.some(
+        (item) => item.id === movie.id
+      );
+
+
+    let updatedList;
+
+
+    // REMOVE
+    if (alreadyExists) {
+
+      updatedList =
+        myList.filter(
+          (item) => item.id !== movie.id
+        );
+
+    }
+
+    // ADD
+    else {
+
+      updatedList = [
+        ...myList,
+        movie,
+      ];
+
+    }
+
+
+    if (setMyList) {
+
+      setMyList(updatedList);
+
+    }
+
+
+    localStorage.setItem(
+      "myNetflixList",
+      JSON.stringify(updatedList)
+    );
+
+  };
+
+
+  // =====================================================
+  // LIKE
+  // =====================================================
+
+  const handleLike = () => {
+
+    if (!movie) return;
+
+
+    const savedLikes =
+      JSON.parse(
+        localStorage.getItem("likedMovies") || "[]"
+      );
+
+
+    const alreadyLiked =
+      savedLikes.some(
+        (item) => item.id === movie.id
+      );
+
+
+    let updatedLikes;
+
+
+    // UNLIKE
+    if (alreadyLiked) {
+
+      updatedLikes =
+        savedLikes.filter(
+          (item) => item.id !== movie.id
+        );
+
+
+      setLiked(false);
+
+    }
+
+    // LIKE
+    else {
+
+      updatedLikes = [
+        ...savedLikes,
+        movie,
+      ];
+
+
+      setLiked(true);
+
+    }
+
+
+    localStorage.setItem(
+      "likedMovies",
+      JSON.stringify(updatedLikes)
+    );
+
+  };
+
+
+  // =====================================================
+  // MORE INFO
+  // =====================================================
+
+  const handleMoreInfo = () => {
+
+    clearTimeout(
+      hideTimeout.current
+    );
+
+
+    setPopupMovie(null);
+
+
+    setSelectedMovie(movie);
+
+  };
+
+
+  // =====================================================
+  // POPUP MOUSE ENTER
+  // =====================================================
 
   const handleMouseEnter = () => {
-    clearTimeout(hideTimeout.current);
+
+    clearTimeout(
+      hideTimeout.current
+    );
+
   };
+
+
+  // =====================================================
+  // POPUP MOUSE LEAVE
+  // =====================================================
 
   const handleMouseLeave = () => {
-    hideTimeout.current = setTimeout(() => {
-      setPopupMovie(null);
-    }, 200);
+
+    hideTimeout.current =
+      setTimeout(() => {
+
+        setPopupMovie(null);
+
+      }, 250);
+
   };
 
+
+  // =====================================================
+  // NO MOVIE
+  // =====================================================
+
+  if (!movie) {
+
+    return null;
+
+  }
+
+
+  // =====================================================
+  // MY LIST STATUS
+  // =====================================================
+
+  const isInMyList =
+    myList.some(
+      (item) => item.id === movie.id
+    );
+
+
+  // =====================================================
+  // UI
+  // =====================================================
+
   return (
+
     <div
       className="movie-popup show"
+
       style={{
         position: "fixed",
         left: `${position.left}px`,
         top: `${position.top}px`,
       }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+
+      onMouseEnter={
+        handleMouseEnter
+      }
+
+      onMouseLeave={
+        handleMouseLeave
+      }
     >
 
+
       {/* =================================================
-          MOVIE IMAGE
+          IMAGE
       ================================================= */}
 
       <div className="popup-media">
 
         <img
-          src={movie.backdrop || movie.image}
+          src={
+            movie.backdrop ||
+            movie.image
+          }
+
           alt={movie.title}
+
           className="popup-image"
         />
 
@@ -54,7 +297,7 @@ function Popup({
 
 
       {/* =================================================
-          POPUP BODY
+          BODY
       ================================================= */}
 
       <div className="popup-body">
@@ -66,41 +309,114 @@ function Popup({
 
         <div className="popup-buttons">
 
-          {/* PLAY */}
+
+          {/* =================================================
+              PLAY
+          ================================================= */}
+
           <button
             className="circle play-circle"
-            title="Play"
+
+            title="Play Trailer"
+
+            onClick={
+              handlePlay
+            }
           >
+
             <i className="fa-solid fa-play"></i>
+
           </button>
 
 
-          {/* MY LIST */}
+          {/* =================================================
+              MY LIST
+          ================================================= */}
+
           <button
-            className="circle"
-            title="Add to My List"
+            className={
+              `circle ${
+                isInMyList
+                  ? "active-list-button"
+                  : ""
+              }`
+            }
+
+            title={
+              isInMyList
+                ? "Remove from My List"
+                : "Add to My List"
+            }
+
+            onClick={
+              handleMyList
+            }
           >
-            <i className="fa-solid fa-plus"></i>
+
+            <i
+              className={
+                isInMyList
+                  ? "fa-solid fa-check"
+                  : "fa-solid fa-plus"
+              }
+            ></i>
+
           </button>
 
 
-          {/* LIKE */}
+          {/* =================================================
+              LIKE
+          ================================================= */}
+
           <button
-            className="circle"
-            title="Like"
+            className={
+              `circle ${
+                liked
+                  ? "liked-button"
+                  : ""
+              }`
+            }
+
+            title={
+              liked
+                ? "Unlike"
+                : "Like"
+            }
+
+            onClick={
+              handleLike
+            }
           >
-            <i className="fa-regular fa-thumbs-up"></i>
+
+            <i
+              className={
+                liked
+                  ? "fa-solid fa-thumbs-up"
+                  : "fa-regular fa-thumbs-up"
+              }
+            ></i>
+
           </button>
 
 
-          {/* MORE INFO */}
+          {/* =================================================
+              MORE INFO
+          ================================================= */}
+
           <button
             className="circle more-btn"
+
             title="More Info"
-            onClick={handleMoreInfo}
+
+            onClick={
+              handleMoreInfo
+            }
           >
+
             <i className="fa-solid fa-chevron-down"></i>
+
           </button>
+
 
         </div>
 
@@ -115,26 +431,31 @@ function Popup({
 
 
         {/* =================================================
-            MOVIE DETAILS
+            DETAILS
         ================================================= */}
 
         <div className="popup-details">
 
-          {/* MATCH */}
           <span className="green">
             {movie.match}
           </span>
 
 
-          {/* AGE */}
-          <span className="tag">
-            {movie.age}
+          <span>
+            ⭐{" "}
+            {movie.rating
+              ? movie.rating.toFixed(1)
+              : "N/A"}
           </span>
 
 
-          {/* TIME */}
+          <span className="tag">
+            {movie.age || "U/A 16+"}
+          </span>
+
+
           <span>
-            {movie.time}
+            {movie.time || "2h"}
           </span>
 
         </div>
@@ -145,14 +466,17 @@ function Popup({
         ================================================= */}
 
         <p>
-          {movie.genre}
+          {movie.genre || "Movies"}
         </p>
 
 
       </div>
 
     </div>
+
   );
+
 }
+
 
 export default Popup;

@@ -29,7 +29,7 @@ function MovieRow({
 
 
   // =====================================================
-  // UPDATE SCROLL BUTTONS
+  // UPDATE ARROW VISIBILITY
   // =====================================================
 
   const updateButtons = () => {
@@ -39,28 +39,75 @@ function MovieRow({
     if (!row) return;
 
 
-    setCanScrollLeft(
-      row.scrollLeft > 5
-    );
+    const canLeft =
+      row.scrollLeft > 5;
 
 
-    setCanScrollRight(
+    const canRight =
       row.scrollLeft + row.clientWidth <
-      row.scrollWidth - 5
-    );
+      row.scrollWidth - 5;
+
+
+    setCanScrollLeft(canLeft);
+
+    setCanScrollRight(canRight);
 
   };
 
 
   // =====================================================
-  // RUN WHEN MOVIES CHANGE
+  // CHECK SCROLL WHEN MOVIES CHANGE
   // =====================================================
 
   useEffect(() => {
 
+    const row = rowRef.current;
+
+    if (!row) return;
+
+
     updateButtons();
 
+
+    // Check again after images/cards render
+    const timer = setTimeout(() => {
+
+      updateButtons();
+
+    }, 300);
+
+
+    return () => {
+
+      clearTimeout(timer);
+
+    };
+
   }, [movies]);
+
+
+  // =====================================================
+  // CHECK SCROLL WHEN WINDOW RESIZES
+  // =====================================================
+
+  useEffect(() => {
+
+    window.addEventListener(
+      "resize",
+      updateButtons
+    );
+
+
+    return () => {
+
+      window.removeEventListener(
+        "resize",
+        updateButtons
+      );
+
+    };
+
+  }, []);
 
 
   // =====================================================
@@ -75,15 +122,13 @@ function MovieRow({
 
 
     row.scrollBy({
-      left: -(row.clientWidth - 100),
+
+      left:
+        -(row.clientWidth * 0.8),
+
       behavior: "smooth",
+
     });
-
-
-    setTimeout(
-      updateButtons,
-      400
-    );
 
   };
 
@@ -100,17 +145,26 @@ function MovieRow({
 
 
     row.scrollBy({
-      left: row.clientWidth - 100,
+
+      left:
+        row.clientWidth * 0.8,
+
       behavior: "smooth",
+
     });
 
-
-    setTimeout(
-      updateButtons,
-      400
-    );
-
   };
+
+
+  // =====================================================
+  // NO MOVIES
+  // =====================================================
+
+  if (!movies || movies.length === 0) {
+
+    return null;
+
+  }
 
 
   // =====================================================
@@ -119,11 +173,24 @@ function MovieRow({
 
   return (
 
-    <div className="movie-section">
+    <section className="movie-section">
 
 
       {/* =================================================
-          LEFT BUTTON
+          TITLE
+      ================================================= */}
+
+      <div className="movie-row-header">
+
+        <h2>
+          {title}
+        </h2>
+
+      </div>
+
+
+      {/* =================================================
+          LEFT ARROW
       ================================================= */}
 
       {canScrollLeft && (
@@ -131,6 +198,7 @@ function MovieRow({
         <button
           className="row-btn left-btn"
           onClick={scrollLeft}
+          aria-label={`Scroll ${title} left`}
         >
 
           <i className="fa-solid fa-chevron-left"></i>
@@ -141,7 +209,7 @@ function MovieRow({
 
 
       {/* =================================================
-          RIGHT BUTTON
+          RIGHT ARROW
       ================================================= */}
 
       {canScrollRight && (
@@ -149,6 +217,7 @@ function MovieRow({
         <button
           className="row-btn right-btn"
           onClick={scrollRight}
+          aria-label={`Scroll ${title} right`}
         >
 
           <i className="fa-solid fa-chevron-right"></i>
@@ -156,15 +225,6 @@ function MovieRow({
         </button>
 
       )}
-
-
-      {/* =================================================
-          TITLE
-      ================================================= */}
-
-      <h2>
-        {title}
-      </h2>
 
 
       {/* =================================================
@@ -192,9 +252,11 @@ function MovieRow({
 
       </div>
 
-    </div>
+
+    </section>
 
   );
+
 }
 
 

@@ -1,6 +1,5 @@
 import "../styles/style.css";
 
-
 function MovieCard({
   movie,
   setPopupMovie,
@@ -8,28 +7,32 @@ function MovieCard({
   hideTimeout,
 }) {
 
-
   // =====================================================
   // MOUSE ENTER
   // =====================================================
 
   const handleMouseEnter = (e) => {
 
-    // Cancel previous hide timer
-    clearTimeout(
-      hideTimeout.current
-    );
+    // Cancel any pending popup hide
+    clearTimeout(hideTimeout.current);
 
 
-    const rect =
-      e.currentTarget.getBoundingClientRect();
+    const card = e.currentTarget;
+
+    const rect = card.getBoundingClientRect();
 
 
+    // Popup dimensions
     const popupWidth = 380;
     const popupHeight = 380;
 
+    const gap = 15;
+    const screenPadding = 10;
 
-    // Calculate popup horizontal position
+
+    // =====================================================
+    // HORIZONTAL POSITION
+    // =====================================================
 
     let left =
       rect.left +
@@ -37,50 +40,66 @@ function MovieCard({
       popupWidth / 2;
 
 
-    // Calculate popup vertical position
-
-    let top =
-      rect.top -
-      popupHeight -
-      15;
-
-
-    // If popup goes above screen,
-    // place it below the card
-
-    if (top < 10) {
-
-      top =
-        rect.bottom + 15;
-
+    // Keep popup inside left side
+    if (left < screenPadding) {
+      left = screenPadding;
     }
 
 
-    // Prevent popup going outside left
-
-    if (left < 10) {
-
-      left = 10;
-
-    }
-
-
-    // Prevent popup going outside right
-
+    // Keep popup inside right side
     if (
       left + popupWidth >
-      window.innerWidth - 10
+      window.innerWidth - screenPadding
     ) {
 
       left =
         window.innerWidth -
         popupWidth -
-        10;
+        screenPadding;
 
     }
 
 
-    // Set popup position
+    // =====================================================
+    // VERTICAL POSITION
+    // =====================================================
+
+    let top =
+      rect.top -
+      popupHeight -
+      gap;
+
+
+    // If there isn't enough space above,
+    // show popup below the card
+    if (top < screenPadding) {
+
+      top =
+        rect.bottom +
+        gap;
+
+    }
+
+
+    // If popup would go below the viewport,
+    // keep it inside the screen
+    if (
+      top + popupHeight >
+      window.innerHeight -
+      screenPadding
+    ) {
+
+      top =
+        window.innerHeight -
+        popupHeight -
+        screenPadding;
+
+    }
+
+
+    // =====================================================
+    // SET POPUP POSITION
+    // =====================================================
 
     setPopupPosition({
       left,
@@ -88,7 +107,9 @@ function MovieCard({
     });
 
 
-    // Show popup
+    // =====================================================
+    // SHOW POPUP
+    // =====================================================
 
     setPopupMovie(movie);
 
@@ -106,7 +127,7 @@ function MovieCard({
 
         setPopupMovie(null);
 
-      }, 200);
+      }, 250);
 
   };
 
@@ -127,6 +148,7 @@ function MovieCard({
         src={movie.image}
         alt={movie.title}
         className="poster"
+        loading="lazy"
       />
 
     </div>
