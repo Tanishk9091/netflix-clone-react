@@ -1,0 +1,2485 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    width: 100%;
+    height: 92vh;
+    min-height: 650px;
+
+    position: relative;
+
+    background-size: cover;
+    background-position: center 15%;
+    background-repeat: no-repeat;
+
+    transition: background-image 0.5s ease-in-out;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 250px;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0, 0, 0, 0.45),
+        #000
+    );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+nav {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 22px 4%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+
+    gap: 35px;
+}
+
+.logo {
+    width: 100px;
+    cursor: pointer;
+}
+
+.nav-left ul {
+    display: flex;
+
+    list-style: none;
+
+    gap: 8px;
+}
+
+.nav-left ul li a {
+    text-decoration: none;
+
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    padding: 9px 15px;
+
+    border-radius: 25px;
+
+    transition: 0.2s ease;
+}
+
+.nav-left ul li a:hover {
+    color: #d2d2d2;
+}
+
+.nav-left ul li a:active {
+    background: rgba(255, 255, 255, 0.18);
+
+    backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   NAV RIGHT
+========================================================= */
+
+.nav-right {
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+}
+
+.nav-right i {
+    font-size: 21px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.nav-right i:hover {
+    transform: scale(1.1);
+}
+
+.profile {
+    width: 34px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box {
+    display: flex;
+    align-items: center;
+
+    padding: 6px 10px;
+
+    border: 1px solid transparent;
+
+    background: transparent;
+
+    transition: 0.3s ease;
+}
+
+.search-box.active {
+    border: 1px solid #fff;
+
+    background: #141414;
+}
+
+.search-box input {
+    width: 200px;
+
+    margin-left: 10px;
+
+    background: transparent;
+
+    border: none;
+    outline: none;
+
+    color: #fff;
+
+    font-size: 15px;
+}
+
+.search-box input::placeholder {
+    color: #aaa;
+}
+
+.search-icon {
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.content {
+    position: absolute;
+
+    left: 5%;
+
+    top: 57%;
+
+    transform: translateY(-50%);
+
+    width: min(600px, 45vw);
+
+    z-index: 10;
+}
+
+.movie-logo {
+    width: 320px;
+
+    max-width: 90%;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   TOP RANKING
+========================================================= */
+
+.top-ranking {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.top-ranking img {
+    width: 34px;
+    height: 34px;
+
+    object-fit: contain;
+}
+
+.top-ranking h2 {
+    font-size: 22px;
+
+    font-weight: 700;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.content p {
+    font-size: 18px;
+
+    line-height: 1.5;
+
+    max-width: 560px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.buttons {
+    display: flex;
+
+    gap: 15px;
+}
+
+button {
+    border: none;
+    outline: none;
+
+    cursor: pointer;
+
+    font-family: inherit;
+}
+
+.buttons button {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 13px 27px;
+
+    border-radius: 5px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.hero-play {
+    background: #fff;
+
+    color: #000;
+}
+
+.hero-play:hover {
+    background: #dcdcdc;
+
+    transform: scale(1.03);
+}
+
+.hero-info {
+    background: rgba(109, 109, 110, 0.75);
+
+    color: #fff;
+}
+
+.hero-info:hover {
+    background: rgba(109, 109, 110, 0.55);
+
+    transform: scale(1.03);
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.rating {
+    position: absolute;
+
+    right: 0;
+    bottom: 120px;
+
+    background: rgba(51, 51, 51, 0.7);
+
+    border-left: 3px solid #fff;
+
+    padding: 12px 28px;
+
+    font-size: 20px;
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   MOVIES SECTION
+========================================================= */
+
+.movies {
+    width: 100%;
+
+    background: #141414;
+
+    padding: 25px 4% 100px;
+}
+
+.movies-container {
+    width: 100%;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   MOVIE SECTION
+========================================================= */
+
+.movie-section {
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 35px;
+}
+
+.movies h2 {
+    text-align: left;
+
+    margin: 0 0 14px;
+
+    font-size: 27px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MOVIE ROW
+========================================================= */
+
+.movie-row {
+    width: 100%;
+
+    display: flex;
+
+    gap: 14px;
+
+    overflow-x: auto;
+    overflow-y: visible;
+
+    padding: 10px 2px 18px;
+
+    scrollbar-width: none;
+
+    scroll-behavior: smooth;
+
+    scroll-snap-type: x mandatory;
+}
+
+.movie-row::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* =========================================================
+   MOVIE CARD
+========================================================= */
+
+.movie-card {
+    position: relative;
+
+    width: 240px;
+    height: 135px;
+
+    flex: 0 0 240px;
+
+    overflow: visible;
+
+    scroll-snap-align: start;
+
+    cursor: pointer;
+}
+
+.movie-card .poster {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 4px;
+
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+}
+
+.movie-card:hover .poster {
+    transform: scale(1.04);
+
+    filter: brightness(1.08);
+}
+
+
+/* =========================================================
+   ROW ARROW BUTTONS
+========================================================= */
+
+.row-btn {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-20%);
+
+    width: 45px;
+    height: 135px;
+
+    border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(20, 20, 20, 0.75);
+
+    color: #fff;
+
+    font-size: 26px;
+
+    cursor: pointer;
+
+    z-index: 100;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.25s ease,
+        background 0.25s ease;
+}
+
+.left-btn {
+    left: 0;
+}
+
+.right-btn {
+    right: 0;
+}
+
+.movie-section:hover .row-btn {
+    opacity: 1;
+}
+
+.row-btn:hover {
+    background: rgba(20, 20, 20, 0.95);
+}
+
+
+/* =========================================================
+   NETFLIX POPUP
+========================================================= */
+
+.movie-popup {
+    position: fixed;
+
+    display: block;
+
+    width: 340px;
+
+    background: #181818;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    z-index: 99999;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.8);
+
+    animation: popupAnimation 0.22s ease forwards;
+}
+
+@keyframes popupAnimation {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(12px)
+            scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+.movie-popup.show {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   POPUP MEDIA
+========================================================= */
+
+.popup-media {
+    width: 100%;
+
+    height: 175px;
+
+    overflow: hidden;
+}
+
+.popup-media img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 12px 12px 0 0;
+}
+
+
+/* =========================================================
+   POPUP BODY
+========================================================= */
+
+.popup-body {
+    padding: 15px 16px 18px;
+}
+
+.popup-buttons {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   POPUP CIRCLE BUTTONS
+========================================================= */
+
+.circle {
+    width: 36px;
+    height: 36px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(255, 255, 255, 0.45);
+
+    background: #666;
+
+    color: #fff;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.circle:hover {
+    background: #fff;
+
+    color: #000;
+
+    transform: scale(1.1);
+}
+
+.play-circle {
+    background: #fff;
+
+    color: #000;
+}
+
+.more-btn {
+    margin-left: auto;
+}
+
+
+/* =========================================================
+   POPUP TITLE
+========================================================= */
+
+.popup-body h3 {
+    font-size: 22px;
+
+    font-weight: 700;
+
+    margin: 8px 0 10px;
+}
+
+
+/* =========================================================
+   POPUP DETAILS
+========================================================= */
+
+.popup-details {
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+    margin: 8px 0 10px;
+
+    font-size: 14px;
+}
+
+.green {
+    color: #46d369;
+
+    font-weight: 700;
+}
+
+.tag {
+    border: 1px solid #888;
+
+    padding: 2px 7px;
+
+    font-size: 11px;
+}
+
+.popup-body p {
+    color: #d2d2d2;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   MOVIE MODAL
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.82);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 30px;
+
+    z-index: 100000;
+
+    animation: fadeIn 0.25s ease;
+
+    overflow-y: auto;
+}
+
+.movie-modal {
+    width: 800px;
+
+    max-width: 95vw;
+    max-height: 90vh;
+
+    background: #181818;
+
+    border-radius: 12px;
+
+    overflow: auto;
+
+    position: relative;
+
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.8);
+
+    scrollbar-width: none;
+}
+
+.movie-modal::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-banner {
+    width: 100%;
+
+    height: 380px;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.modal-content {
+    padding: 24px 28px 30px;
+}
+
+.modal-content h1 {
+    font-size: 38px;
+
+    margin-bottom: 14px;
+}
+
+.modal-details {
+    display: flex;
+
+    gap: 14px;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.modal-description {
+    color: #d2d2d2;
+
+    line-height: 1.6;
+
+    margin: 18px 0;
+}
+
+.modal-content h3 {
+    margin-top: 15px;
+
+    margin-bottom: 6px;
+}
+
+.modal-buttons {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 22px;
+}
+
+.modal-buttons button {
+    padding: 12px 24px;
+
+    border-radius: 5px;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+.play-btn {
+    background: #fff;
+
+    color: #000;
+}
+
+.play-btn:hover {
+    background: #ddd;
+}
+
+.list-btn {
+    background: #444;
+
+    color: #fff;
+}
+
+.list-btn:hover {
+    background: #666;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.close-btn {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(20, 20, 20, 0.85);
+
+    color: #fff;
+
+    font-size: 20px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    transition: 0.25s;
+}
+
+.close-btn:hover {
+    background: #444;
+
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    nav {
+        padding: 18px 3%;
+    }
+
+    .nav-left {
+        gap: 20px;
+    }
+
+    .nav-left ul {
+        gap: 2px;
+    }
+
+    .nav-left ul li a {
+        font-size: 14px;
+
+        padding: 8px 10px;
+    }
+
+    .content {
+        left: 4%;
+
+        width: 55vw;
+    }
+
+    .movie-card {
+        width: 220px;
+
+        height: 124px;
+
+        flex-basis: 220px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .hero {
+        height: 75vh;
+
+        min-height: 600px;
+    }
+
+    .nav-left ul {
+        display: none;
+    }
+
+    .logo {
+        width: 85px;
+    }
+
+    .nav-right {
+        gap: 12px;
+    }
+
+    .content {
+        left: 5%;
+
+        top: 58%;
+
+        width: 90%;
+    }
+
+    .movie-logo {
+        width: 240px;
+    }
+
+    .content p {
+        font-size: 15px;
+
+        max-width: 95%;
+    }
+
+    .buttons button {
+        padding: 10px 18px;
+
+        font-size: 15px;
+    }
+
+    .movies {
+        padding: 25px 4% 70px;
+    }
+
+    .movies h2 {
+        font-size: 23px;
+    }
+
+    .movie-card {
+        width: 190px;
+
+        height: 107px;
+
+        flex-basis: 190px;
+    }
+
+    .movie-popup {
+        width: 300px;
+    }
+
+    .popup-media {
+        height: 150px;
+    }
+
+    .modal-overlay {
+        padding: 15px;
+    }
+
+    .modal-banner {
+        height: 250px;
+    }
+
+    .modal-content h1 {
+        font-size: 28px;
+    }
+}
+
+/* =====================================================
+   NETFLIX STYLE TRAILER MODAL
+===================================================== */
+
+.trailer-modal {
+    position: relative;
+
+    width: 1000px;
+    max-width: 92vw;
+
+    background: #080808;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.95);
+
+    animation: trailerModalIn 0.25s ease;
+
+    z-index: 100001;
+}
+
+
+/* =====================================================
+   TRAILER VIDEO
+===================================================== */
+
+.trailer-container {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    background: #000;
+}
+
+
+.trailer-container iframe {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    border: none;
+}
+
+
+/* =====================================================
+   TRAILER CLOSE BUTTON
+===================================================== */
+
+.trailer-modal .close-btn {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    color: #fff;
+
+    font-size: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.trailer-modal .close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+
+    transform: scale(1.08);
+}
+
+
+/* =====================================================
+   TRAILER INFORMATION
+===================================================== */
+
+.trailer-info {
+    padding: 20px 28px 24px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #181818,
+            #101010
+        );
+}
+
+
+.trailer-info h2 {
+    margin: 0 0 8px;
+
+    color: #fff;
+
+    font-size: 25px;
+
+    font-weight: 700;
+}
+
+
+.trailer-info p {
+    margin: 0;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   TRAILER MODAL ANIMATION
+===================================================== */
+
+@keyframes trailerModalIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.96)
+            translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+/* =====================================================
+   TRAILER MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .trailer-modal {
+        width: 95vw;
+
+        max-width: 95vw;
+
+        border-radius: 7px;
+    }
+
+
+    .trailer-modal .close-btn {
+
+        top: 10px;
+        right: 10px;
+
+        width: 36px;
+        height: 36px;
+
+        font-size: 17px;
+    }
+
+
+    .trailer-info {
+
+        padding: 16px 18px 20px;
+    }
+
+
+    .trailer-info h2 {
+
+        font-size: 20px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .trailer-info p {
+
+        font-size: 13px;
+    }
+
+}
+/* =====================================================
+   TRAILER CONTAINER
+===================================================== */
+
+.trailer-container {
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    background: #000;
+}
+
+
+.trailer-container iframe {
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    border: none;
+}
+
+
+/* =====================================================
+   TRAILER INFO
+===================================================== */
+
+.trailer-info {
+    padding: 20px 24px;
+}
+
+
+.trailer-info h2 {
+    color: white;
+
+    font-size: 24px;
+
+    margin-bottom: 8px;
+}
+
+
+.trailer-info p {
+    color: #aaa;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .trailer-modal {
+        width: 95vw;
+    }
+
+    .trailer-info {
+        padding: 15px;
+    }
+
+    .trailer-info h2 {
+        font-size: 19px;
+    }
+
+}
+
+/* =====================================================
+   SEARCH RESULTS PAGE
+===================================================== */
+
+.search-results-section {
+  width: 100%;
+  padding: 120px 0 60px 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.search-results-section > h2 {
+  margin: 0 0 25px 0;
+  padding: 0 40px;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   SEARCH MOVIE ROW
+===================================================== */
+
+.search-results-section .movie-section {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+
+/* Hide the empty title coming from MovieRow */
+
+.search-results-section .movie-section > h2 {
+  display: none;
+}
+
+
+/* =====================================================
+   SEARCH MOVIE CARDS
+===================================================== */
+
+.search-results-section .movie-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 10px 0 30px 0;
+  box-sizing: border-box;
+
+  scrollbar-width: none;
+}
+
+.search-results-section .movie-row::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* =====================================================
+   SEARCH CARD SIZE
+===================================================== */
+
+.search-results-section .movie-card {
+  flex: 0 0 240px;
+  width: 240px;
+  height: 135px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   SEARCH POSTER
+===================================================== */
+
+.search-results-section .movie-card .poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* =====================================================
+   SEARCH ROW BUTTONS
+===================================================== */
+
+.search-results-section .row-btn {
+  z-index: 20;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .search-results-section {
+    padding-top: 100px;
+  }
+
+  .search-results-section > h2 {
+    padding: 0 20px;
+    font-size: 22px;
+  }
+
+  .search-results-section .movie-section {
+    padding: 0 20px;
+  }
+
+  .search-results-section .movie-card {
+    flex: 0 0 180px;
+    width: 180px;
+    height: 105px;
+  }
+
+}
+
+/* =====================================================
+   SEARCH + NAVBAR FIX
+===================================================== */
+
+nav {
+  z-index: 1000;
+}
+
+.search-results-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================================
+   NETFLIX LOGIN / SIGNUP
+========================================================= */
+
+.auth-page {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.45) 0%,
+            rgba(0, 0, 0, 0.65) 50%,
+            rgba(0, 0, 0, 0.88) 100%
+        ),
+        url("../assets/Images/login-background.jpg");
+
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: 99999;
+}
+
+
+/* =========================================================
+   EXTRA DARK GRADIENT
+========================================================= */
+
+.auth-page::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.35),
+            transparent 50%,
+            rgba(0, 0, 0, 0.35)
+        );
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+/* =========================================================
+   AUTH CARD
+========================================================= */
+
+.auth-card {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 450px;
+
+    padding: 55px 60px;
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.78);
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.75);
+}
+
+
+/* =========================================================
+   AUTH TITLE
+========================================================= */
+
+.auth-card h1 {
+    margin: 0 0 30px;
+
+    color: #fff;
+
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   AUTH FORM
+========================================================= */
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+/* =========================================================
+   AUTH INPUTS
+========================================================= */
+
+.auth-card input {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    outline: none;
+
+    background: #333;
+    color: #fff;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.auth-card input::placeholder {
+    color: #aaa;
+}
+
+.auth-card input:focus {
+    background: #454545;
+    border-color: #777;
+}
+
+
+/* =========================================================
+   AUTH BUTTON
+========================================================= */
+
+.auth-submit {
+    width: 100%;
+    height: 50px;
+
+    margin-top: 8px;
+
+    border: none;
+    border-radius: 4px;
+
+    background: #e50914;
+    color: #fff;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.auth-submit:hover {
+    background: #f40612;
+    transform: translateY(-1px);
+}
+
+.auth-submit:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   AUTH ERROR
+========================================================= */
+
+.auth-error {
+    margin: 0 0 15px;
+
+    color: #e87c03;
+
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   LOGIN / SIGNUP SWITCH
+========================================================= */
+
+.auth-switch {
+    margin-top: 30px;
+
+    color: #737373;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.auth-switch button {
+    margin-left: 5px;
+
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    color: #fff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.auth-switch button:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   AUTH MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .auth-page {
+        align-items: flex-start;
+        padding: 80px 15px 30px;
+    }
+
+    .auth-card {
+        max-width: 100%;
+        padding: 40px 25px;
+    }
+
+    .auth-card h1 {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+    .auth-card input {
+        height: 50px;
+        font-size: 15px;
+    }
+
+    .auth-submit {
+        height: 48px;
+    }
+}
+/* =========================================================
+   PROFILE DROPDOWN FIX
+========================================================= */
+
+.nav-right {
+    position: relative;
+}
+
+
+/* PROFILE WRAPPER */
+
+.profile-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+/* PROFILE */
+
+.profile {
+    width: 36px;
+    height: 36px;
+
+    object-fit: cover;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+}
+
+.profile:hover {
+    transform: scale(1.05);
+}
+
+
+/* ARROW */
+
+.profile-arrow {
+    margin-left: 6px;
+
+    color: #fff;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease;
+}
+
+
+/* ROTATE ARROW WHEN OPEN */
+
+.profile-container.active .profile-arrow {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.profile-dropdown {
+    position: absolute;
+
+    top: 48px;
+    right: 0;
+
+    width: 280px;
+
+    padding: 18px;
+
+    background: rgba(20, 20, 20, 0.98);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.8);
+
+    z-index: 99999;
+
+    animation: profileDropdown 0.18s ease;
+}
+
+
+/* DROPDOWN ANIMATION */
+
+@keyframes profileDropdown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* USER INFO */
+
+.profile-user {
+    padding-bottom: 15px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.15);
+}
+
+.profile-user-name {
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+.profile-user-email {
+    color: #aaa;
+
+    font-size: 13px;
+
+    word-break: break-word;
+}
+
+
+/* LOGOUT */
+
+.profile-logout {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 10px 0;
+
+    background: transparent;
+
+    color: #fff;
+
+    border: none;
+
+    text-align: left;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.profile-logout:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   HERO DARKER
+========================================================= */
+
+.hero {
+    background-position: center center;
+}
+
+
+/* Darken the hero */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.78) 0%,
+            rgba(0, 0, 0, 0.35) 45%,
+            rgba(0, 0, 0, 0.25) 100%
+        );
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* Keep hero content above overlay */
+
+.hero .content {
+    z-index: 10;
+}
+
+
+/* =========================================================
+   HERO CONTENT POSITION
+========================================================= */
+
+.content {
+    top: 60%;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .profile-dropdown {
+        right: -10px;
+
+        width: 250px;
+    }
+
+}
+
+/* =========================================================
+   FINAL NETFLIX NAVBAR
+========================================================= */
+
+.navbar {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 90px;
+
+    padding: 0 4%;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    z-index: 1000;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.85),
+            rgba(0, 0, 0, 0)
+        );
+}
+
+
+/* =========================================================
+   LEFT
+========================================================= */
+
+.nav-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 40px;
+}
+
+
+/* LOGO */
+
+.nav-left .logo {
+    width: 92px;
+
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+
+/* NAV LINKS */
+
+.nav-left ul {
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+
+.nav-left ul li {
+    list-style: none;
+}
+
+
+.nav-left ul li a {
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.nav-left ul li a:hover {
+    color: #b3b3b3;
+}
+
+
+/* =========================================================
+   RIGHT
+========================================================= */
+
+.nav-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    height: 100%;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-box {
+    display: flex;
+
+    align-items: center;
+
+    height: 34px;
+
+    border: 1px solid transparent;
+
+    background: transparent;
+
+    transition:
+        width 0.25s ease,
+        background 0.25s ease,
+        border 0.25s ease;
+}
+
+
+.search-box.active {
+    width: 250px;
+
+    padding: 0 10px;
+
+    background: #000;
+
+    border: 1px solid #fff;
+}
+
+
+.search-box input {
+    flex: 1;
+
+    width: 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #fff;
+
+    font-size: 14px;
+}
+
+
+.search-box input::placeholder {
+    color: #aaa;
+}
+
+
+.search-icon {
+    color: #fff;
+
+    font-size: 21px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.nav-icon {
+    color: #fff;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-wrapper {
+    position: relative;
+}
+
+
+.profile-button {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+
+.profile-button .profile {
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 4px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.profile-arrow {
+    color: #fff;
+
+    font-size: 11px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.profile-arrow.open {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.profile-dropdown {
+    position: absolute;
+
+    top: 48px;
+
+    right: 0;
+
+    width: 280px;
+
+    padding: 18px;
+
+    box-sizing: border-box;
+
+    background: #181818;
+
+    border: 1px solid #333;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.7);
+
+    z-index: 99999;
+}
+
+
+/* USER */
+
+.profile-user {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.profile-user img {
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 4px;
+
+    object-fit: cover;
+}
+
+
+.profile-user div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    min-width: 0;
+}
+
+
+.profile-user strong {
+    color: #fff;
+
+    font-size: 15px;
+}
+
+
+.profile-user span {
+    color: #aaa;
+
+    font-size: 12px;
+
+    word-break: break-all;
+}
+
+
+/* LINE */
+
+.profile-line {
+    height: 1px;
+
+    margin: 16px 0;
+
+    background: #333;
+}
+
+
+/* LOGOUT */
+
+.logout-button {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 8px 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #fff;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.logout-button:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   HERO FIX
+========================================================= */
+
+.hero {
+    position: relative;
+
+    min-height: 780px;
+
+    background-size: cover;
+
+    background-position: center;
+
+    overflow: hidden;
+}
+
+
+/* DARK GRADIENT */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.78) 0%,
+            rgba(0, 0, 0, 0.35) 48%,
+            rgba(0, 0, 0, 0.12) 75%
+        ),
+        linear-gradient(
+            to top,
+            #111 0%,
+            transparent 35%
+        );
+
+    z-index: 1;
+}
+
+
+/* CONTENT ABOVE GRADIENT */
+
+.hero .content {
+    position: absolute;
+
+    left: 5%;
+
+    top: 50%;
+
+    transform: translateY(-25%);
+
+    width: 500px;
+
+    max-width: 45%;
+
+    z-index: 10;
+}
+
+
+/* HERO TITLE */
+
+.hero .content h1 {
+    margin: 20px 0;
+
+    font-size: 48px;
+
+    line-height: 1.1;
+
+    color: #fff;
+}
+
+
+/* HERO DESCRIPTION */
+
+.hero .content p {
+    max-width: 520px;
+
+    margin-bottom: 22px;
+
+    color: #fff;
+
+    font-size: 17px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .nav-left {
+        gap: 20px;
+    }
+
+    .nav-left ul {
+        gap: 15px;
+    }
+
+    .nav-left ul li a {
+        font-size: 13px;
+    }
+
+    .nav-right {
+        gap: 15px;
+    }
+
+    .hero .content {
+        left: 5%;
+
+        width: 55%;
+
+        max-width: 55%;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: 75px;
+
+        padding: 0 20px;
+    }
+
+    .nav-left .logo {
+        width: 65px;
+    }
+
+    .nav-left ul li:nth-child(n+3) {
+        display: none;
+    }
+
+    .nav-left ul {
+        gap: 12px;
+    }
+
+    .nav-right {
+        gap: 12px;
+    }
+
+    .hero {
+        min-height: 650px;
+    }
+
+    .hero .content {
+        left: 5%;
+
+        top: 55%;
+
+        width: 80%;
+
+        max-width: 80%;
+    }
+
+    .hero .content h1 {
+        font-size: 32px;
+    }
+
+    .hero .content p {
+        font-size: 14px;
+    }
+
+    .profile-dropdown {
+        right: -5px;
+
+        width: 250px;
+    }
+
+}
