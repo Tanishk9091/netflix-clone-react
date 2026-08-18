@@ -15,14 +15,17 @@ function Navbar({
   onLanguageSelect,
 }) {
 
-  const [showSearch, setShowSearch] =
-    useState(false);
+  // =====================================================
+  // STATES
+  // =====================================================
 
-  const [showProfile, setShowProfile] =
-    useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
-  const [showLanguages, setShowLanguages] =
-    useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+
+  const [showBrowse, setShowBrowse] = useState(false);
+
+  const [showLanguages, setShowLanguages] = useState(false);
 
 
   // =====================================================
@@ -32,6 +35,9 @@ function Navbar({
   const handleHome = (e) => {
 
     e.preventDefault();
+
+    setShowBrowse(false);
+    setShowLanguages(false);
 
     window.scrollTo({
       top: 0,
@@ -49,6 +55,9 @@ function Navbar({
 
     e.preventDefault();
 
+    setShowBrowse(false);
+    setShowLanguages(false);
+
     if (onShows) {
       onShows(e);
     }
@@ -64,10 +73,11 @@ function Navbar({
 
     e.preventDefault();
 
+    setShowBrowse(false);
+    setShowLanguages(false);
+
     const moviesSection =
-      document.getElementById(
-        "movies-section"
-      );
+      document.getElementById("movies-section");
 
     if (moviesSection) {
 
@@ -89,17 +99,16 @@ function Navbar({
 
     e.preventDefault();
 
+    setShowBrowse(false);
+    setShowLanguages(false);
+
     const myListSection =
-      document.getElementById(
-        "my-list-section"
-      );
+      document.getElementById("my-list-section");
 
 
     if (!myList || myList.length === 0) {
 
-      alert(
-        "Your My List is empty."
-      );
+      alert("Your My List is empty.");
 
       return;
 
@@ -119,7 +128,7 @@ function Navbar({
 
 
   // =====================================================
-  // BROWSE BY LANGUAGES
+  // LANGUAGE
   // =====================================================
 
   const handleLanguage = (
@@ -143,8 +152,22 @@ function Navbar({
     }
 
 
-    // Close dropdown
+    setShowLanguages(false);
+    setShowBrowse(false);
 
+  };
+
+
+  // =====================================================
+  // BROWSE
+  // =====================================================
+
+  const toggleBrowse = () => {
+
+    setShowBrowse((previous) => !previous);
+
+    // Close other menus
+    setShowProfile(false);
     setShowLanguages(false);
 
   };
@@ -165,9 +188,44 @@ function Navbar({
   };
 
 
+  // =====================================================
+  // SEARCH
+  // =====================================================
+
+  const toggleSearch = () => {
+
+    setShowSearch((previous) => !previous);
+
+    // Close other menus
+    setShowProfile(false);
+    setShowBrowse(false);
+
+  };
+
+
+  // =====================================================
+  // PROFILE
+  // =====================================================
+
+  const toggleProfile = () => {
+
+    setShowProfile((previous) => !previous);
+
+    // Close other menus
+    setShowBrowse(false);
+    setShowLanguages(false);
+
+  };
+
+
+  // =====================================================
+  // UI
+  // =====================================================
+
   return (
 
     <nav>
+
 
       {/* =================================================
           LEFT SIDE
@@ -175,7 +233,10 @@ function Navbar({
 
       <div className="nav-left">
 
-        {/* LOGO */}
+
+        {/* =================================================
+            LOGO
+        ================================================= */}
 
         <img
           src={logo}
@@ -185,10 +246,11 @@ function Navbar({
 
 
         {/* =================================================
-            NAVIGATION
+            DESKTOP NAVIGATION
         ================================================= */}
 
-        <ul>
+        <ul className="desktop-nav">
+
 
           {/* HOME */}
 
@@ -232,6 +294,7 @@ function Navbar({
           </li>
 
 
+
           {/* MY LIST */}
 
           <li>
@@ -246,9 +309,7 @@ function Navbar({
           </li>
 
 
-          {/* =================================================
-              BROWSE BY LANGUAGES
-          ================================================= */}
+          {/* BROWSE BY LANGUAGES */}
 
           <li className="language-menu">
 
@@ -259,8 +320,11 @@ function Navbar({
                 e.preventDefault();
 
                 setShowLanguages(
-                  !showLanguages
+                  (previous) => !previous
                 );
+
+                setShowProfile(false);
+                setShowBrowse(false);
 
               }}
             >
@@ -278,15 +342,12 @@ function Navbar({
             </a>
 
 
-            {/* =================================================
-                LANGUAGE DROPDOWN
-            ================================================= */}
+            {/* LANGUAGE DROPDOWN */}
 
             {showLanguages && (
 
               <div className="language-dropdown">
 
-                {/* ENGLISH */}
 
                 <button
                   onClick={() =>
@@ -300,8 +361,6 @@ function Navbar({
                 </button>
 
 
-                {/* HINDI */}
-
                 <button
                   onClick={() =>
                     handleLanguage(
@@ -313,8 +372,6 @@ function Navbar({
                   🇮🇳 Hindi
                 </button>
 
-
-                {/* TAMIL */}
 
                 <button
                   onClick={() =>
@@ -328,8 +385,6 @@ function Navbar({
                 </button>
 
 
-                {/* TELUGU */}
-
                 <button
                   onClick={() =>
                     handleLanguage(
@@ -341,8 +396,6 @@ function Navbar({
                   🇮🇳 Telugu
                 </button>
 
-
-                {/* KOREAN */}
 
                 <button
                   onClick={() =>
@@ -356,8 +409,6 @@ function Navbar({
                 </button>
 
 
-                {/* JAPANESE */}
-
                 <button
                   onClick={() =>
                     handleLanguage(
@@ -370,8 +421,6 @@ function Navbar({
                 </button>
 
 
-                {/* SPANISH */}
-
                 <button
                   onClick={() =>
                     handleLanguage(
@@ -383,6 +432,7 @@ function Navbar({
                   🇪🇸 Spanish
                 </button>
 
+
               </div>
 
             )}
@@ -390,6 +440,207 @@ function Navbar({
           </li>
 
         </ul>
+
+
+        {/* =================================================
+            MOBILE BROWSE
+        ================================================= */}
+
+        <div className="mobile-browse-container">
+
+
+          <button
+            className="browse-button"
+            onClick={toggleBrowse}
+          >
+
+            Browse
+
+            <i
+              className={`fa-solid ${
+                showBrowse
+                  ? "fa-chevron-up"
+                  : "fa-chevron-down"
+              }`}
+            ></i>
+
+          </button>
+
+
+          {/* =================================================
+              MOBILE BROWSE DROPDOWN
+          ================================================= */}
+
+          {showBrowse && (
+
+            <div className="browse-dropdown">
+
+
+              {/* HOME */}
+
+              <button
+                onClick={handleHome}
+              >
+                Home
+              </button>
+
+
+              {/* SHOWS */}
+
+              <button
+                onClick={handleShows}
+              >
+                Shows
+              </button>
+
+
+              {/* MOVIES */}
+
+              <button
+                onClick={handleMovies}
+              >
+                Movies
+              </button>
+
+
+
+              {/* MY LIST */}
+
+              <button
+                onClick={handleMyList}
+              >
+                My List
+              </button>
+
+
+              {/* BROWSE BY LANGUAGES */}
+
+              <button
+                className="browse-language-button"
+                onClick={() => {
+
+                  setShowLanguages(
+                    (previous) => !previous
+                  );
+
+                }}
+              >
+
+                Browse by Languages
+
+                <i
+                  className={`fa-solid ${
+                    showLanguages
+                      ? "fa-chevron-up"
+                      : "fa-chevron-down"
+                  }`}
+                ></i>
+
+              </button>
+
+
+              {/* =================================================
+                  MOBILE LANGUAGE LIST
+              ================================================= */}
+
+              {showLanguages && (
+
+                <div className="mobile-language-list">
+
+
+                  <button
+                    onClick={() =>
+                      handleLanguage(
+                        "en",
+                        "English"
+                      )
+                    }
+                  >
+                    🇬🇧 English
+                  </button>
+
+
+                  <button
+                    onClick={() =>
+                      handleLanguage(
+                        "hi",
+                        "Hindi"
+                      )
+                    }
+                  >
+                    🇮🇳 Hindi
+                  </button>
+
+
+                  <button
+                    onClick={() =>
+                      handleLanguage(
+                        "ta",
+                        "Tamil"
+                      )
+                    }
+                  >
+                    🇮🇳 Tamil
+                  </button>
+
+
+                  <button
+                    onClick={() =>
+                      handleLanguage(
+                        "te",
+                        "Telugu"
+                      )
+                    }
+                  >
+                    🇮🇳 Telugu
+                  </button>
+
+
+                  <button
+                    onClick={() =>
+                      handleLanguage(
+                        "ko",
+                        "Korean"
+                      )
+                    }
+                  >
+                    🇰🇷 Korean
+                  </button>
+
+
+                  <button
+                    onClick={() =>
+                      handleLanguage(
+                        "ja",
+                        "Japanese"
+                      )
+                    }
+                  >
+                    🇯🇵 Japanese
+                  </button>
+
+
+                  <button
+                    onClick={() =>
+                      handleLanguage(
+                        "es",
+                        "Spanish"
+                      )
+                    }
+                  >
+                    🇪🇸 Spanish
+                  </button>
+
+
+                </div>
+
+              )}
+
+            </div>
+
+          )}
+
+        </div>
 
       </div>
 
@@ -419,11 +670,7 @@ function Navbar({
               fa-magnifying-glass
               search-icon
             "
-            onClick={() =>
-              setShowSearch(
-                !showSearch
-              )
-            }
+            onClick={toggleSearch}
           ></i>
 
 
@@ -466,15 +713,12 @@ function Navbar({
 
         <div className="profile-container">
 
+
           <img
             src={profile}
             className="profile"
             alt="Profile"
-            onClick={() =>
-              setShowProfile(
-                !showProfile
-              )
-            }
+            onClick={toggleProfile}
           />
 
 
@@ -488,11 +732,7 @@ function Navbar({
               }
               profile-arrow
             `}
-            onClick={() =>
-              setShowProfile(
-                !showProfile
-              )
-            }
+            onClick={toggleProfile}
           ></i>
 
 
@@ -504,12 +744,15 @@ function Navbar({
 
             <div className="profile-dropdown">
 
+
               <div className="profile-user">
+
 
                 <img
                   src={profile}
                   alt="Profile"
                 />
+
 
                 <div>
 
@@ -517,6 +760,7 @@ function Navbar({
                     {currentUser?.name ||
                       "User"}
                   </strong>
+
 
                   <span>
                     {currentUser?.email ||
@@ -542,11 +786,13 @@ function Navbar({
 
               </button>
 
+
             </div>
 
           )}
 
         </div>
+
 
       </div>
 
